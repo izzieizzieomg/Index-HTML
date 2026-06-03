@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>I Z Z I E | Official Portal</title>
+    <style>
+        :root {
+            --bg-black: #050505;
+            --neon-cyan: #00f2fe;
+            --neon-magenta: #ff00ff;
+            --terminal-green: #00ff41;
+            --dark-surface: #0a0a0a;
+            --border-glow: rgba(0, 242, 254, 0.3);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-black);
+            color: #ffffff;
+            font-family: 'Courier New', Courier, monospace;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Cyber Grid Background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(rgba(0, 242, 254, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 254, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            z-index: -1;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 4rem 0 2rem;
+        }
+
+        h1 {
+            font-size: 3rem;
+            letter-spacing: 10px;
+            text-transform: uppercase;
+            color: #fff;
+            text-shadow: 0 0 10px var(--neon-cyan), 0 0 20px var(--neon-cyan);
+            margin-bottom: 0.5rem;
+        }
+
+        .subtitle {
+            color: var(--neon-magenta);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.8rem;
+            margin-bottom: 2rem;
+        }
+
+        /* Navigation Nodes */
+        .node-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        .cyber-node {
+            background: var(--dark-surface);
+            border: 1px solid var(--neon-cyan);
+            padding: 1rem;
+            color: var(--neon-cyan);
+            text-decoration: none;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cyber-node:hover {
+            background: var(--neon-cyan);
+            color: #000;
+            box-shadow: 0 0 20px var(--neon-cyan);
+        }
+
+        /* Audio Player Terminal */
+        .terminal-card {
+            margin-top: 3rem;
+            padding: 1.5rem;
+            border: 1px solid var(--neon-magenta);
+            background: rgba(0, 0, 0, 0.9);
+            box-shadow: 0 0 15px rgba(255, 0, 255, 0.1);
+        }
+
+        .terminal-header {
+            color: var(--neon-magenta);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.8rem;
+            margin-bottom: 1.5rem;
+            border-bottom: 1px dashed var(--neon-magenta);
+            padding-bottom: 0.5rem;
+        }
+
+        .track-meta {
+            margin-bottom: 1rem;
+        }
+
+        .track-title {
+            color: #fff;
+            font-size: 1.2rem;
+            text-shadow: 0 0 5px var(--neon-magenta);
+        }
+
+        .track-freq {
+            color: #666;
+            font-size: 0.7rem;
+        }
+
+        #progress-wrapper {
+            width: 100%;
+            height: 4px;
+            background: #1a1a1a;
+            margin: 1.5rem 0;
+            cursor: pointer;
+            position: relative;
+        }
+
+        #progress-bar {
+            width: 0%;
+            height: 100%;
+            background: var(--neon-magenta);
+            box-shadow: 0 0 10px var(--neon-magenta);
+        }
+
+        .controls {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        #play-btn {
+            background: transparent;
+            border: 1px solid var(--neon-magenta);
+            color: var(--neon-magenta);
+            padding: 0.6rem 2rem;
+            font-family: 'Courier New', monospace;
+            cursor: pointer;
+            text-transform: uppercase;
+            transition: 0.3s;
+        }
+
+        #play-btn:hover {
+            background: var(--neon-magenta);
+            color: #000;
+        }
+
+        #player-time {
+            font-size: 0.8rem;
+            color: var(--neon-magenta);
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 4rem;
+            color: #444;
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>I Z Z I E</h1>
+            <div class="subtitle">Cyber-Noir Transmission Active</div>
+        </header>
+
+        <!-- Social & Music Nodes -->
+        <div class="node-grid">
+            <a href="https://open.spotify.com" class="cyber-node" target="_blank">
+                <span>[ SPOTIFY_OFFICIAL ]</span>
+                <span>→</span>
+            </a>
+            <a href="https://apple.com" class="cyber-node" target="_blank">
+                <span>[ APPLE_MUSIC_STREAM ]</span>
+                <span>→</span>
+            </a>
+            <a href="https://tiktok.com" class="cyber-node" target="_blank">
+                <span>[ TIKTOK_P52_LORE ]</span>
+                <span>→</span>
+            </a>
+            <a href="https://instagram.com" class="cyber-node" target="_blank">
+                <span>[ INSTAGRAM_VISUALS ]</span>
+                <span>→</span>
+            </a>
+        </div>
+
+        <!-- Audio Player Terminal -->
+        <section class="terminal-card">
+            <div class="terminal-header">
+                System: Audio_Node // Frequency: 528Hz
+            </div>
+            
+            <div class="track-meta">
+                <div class="track-title" id="player-title">JOURNAL NOTES (REMASTERED)</div>
+                <div class="track-freq">TRANSMISSION: IZZIE_V01 // STATUS: SECURE</div>
+            </div>
+
+            <!-- Replace src with your audio link when ready -->
+            <audio id="cyber-audio" src=""></audio>
+
+            <div id="progress-wrapper">
+                <div id="progress-bar"></div>
+            </div>
+
+            <div class="controls">
+                <button id="play-btn">INITIATE PLAY</button>
+                <div id="player-time">0:00 / 0:00</div>
+            </div>
+        </section>
+
+        <footer>
+            EST. 1996 // PROTOCOL 9TH ARCH // ALL RIGHTS RESERVED
+        </footer>
+    </div>
+
+    <script>
+        const audio = document.getElementById('cyber-audio');
+        const playBtn = document.getElementById('play-btn');
+        const progressBar = document.getElementById('progress-bar');
+        const progressWrapper = document.getElementById('progress-wrapper');
+        const timeDisplay = document.getElementById('player-time');
+
+        function formatTime(secs) {
+            const min = Math.floor(secs / 60);
+            const sec = Math.floor(secs % 60);
+            return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+        }
+
+        playBtn.addEventListener('click', () => {
+            if (audio.paused) {
+                audio.play().catch(e => console.log("Add an audio source to enable playback."));
+                playBtn.innerText = "SUSPEND PLAY";
+            } else {
+                audio.pause();
+                playBtn.innerText = "INITIATE PLAY";
+            }
+        });
+
+        audio.addEventListener('timeupdate', () => {
+            const percentage = (audio.currentTime / audio.duration) * 100;
+            progressBar.style.width = percentage + '%';
+            
+            const current = formatTime(audio.currentTime);
+            const total = isNaN(audio.duration) ? '0:00' : formatTime(audio.duration);
+            timeDisplay.innerText = `${current} / ${total}`;
+        });
+
+        progressWrapper.addEventListener('click', (e) => {
+            const rect = progressWrapper.getBoundingClientRect();
+            const clickX = e.clientX - rect.left;
+            const width = rect.width;
+            audio.currentTime = (clickX / width) * audio.duration;
+        });
+
+        audio.addEventListener('ended', () => {
+            playBtn.innerText = "INITIATE PLAY";
+            progressBar.style.width = '0%';
+        });
+    </script>
+</body>
+</html>
