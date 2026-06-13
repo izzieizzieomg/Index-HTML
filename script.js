@@ -3,7 +3,14 @@ let player, boss = null;
 let score = 0;
 let gameState = "START";
 
-// 🪐 MUSIC NODES (PLANETS)
+let maxwellParams = {
+  frequency: 0.05,
+  amplitude: 20,
+  wavelength: 60,
+  speed: 1.5,
+  phase: 0
+};
+
 let musicNodes = [
   { name: "Poison Sea", x: 120, y: 120, url: "#", unlocked: false, color: [0, 255, 255] },
   { name: "Heavy Saturation", x: 680, y: 140, url: "https://open.spotify.com/album/20l6UL9w17L5dL10ERto6B", unlocked: true, color: [255, 100, 0] },
@@ -11,11 +18,17 @@ let musicNodes = [
 ];
 
 function setup() {
-  const canvas = createCanvas(800, 600);
-  canvas.parent('sketch-holder');
+  let container = document.getElementById('sketch-holder');
+  let canvas = createCanvas(container.clientWidth, container.clientHeight);
+  canvas.parent("sketch-holder");
   textFont('monospace');
   player = new Player();
   resetEnemies();
+}
+
+function windowResized() {
+  let container = document.getElementById('sketch-holder');
+  resizeCanvas(container.clientWidth, container.clientHeight);
 }
 
 function draw() {
@@ -34,7 +47,8 @@ function updateGame() {
   for (let e of swarm) {
     e.hunt(player);
     e.update();
-    if (dist(e.pos.x, e.pos.y, player.pos.x, player.pos.y) < 30) score = max(0, score - 10);
+    let distanceToPlayer = dist(e.pos.x, e.pos.y, player.pos.x, player.pos.y);
+    if (distanceToPlayer < 30) score = max(0, score - 10);
   }
   if (boss) {
     boss.hunt(player);
@@ -44,14 +58,15 @@ function updateGame() {
     let b = bullets[i];
     b.update();
     for (let e of swarm) {
-      if (dist(b.pos.x, b.pos.y, e.pos.x, e.pos.y) < 25) {
-        score += 10;
-        e.respawn();
-      }
+      let bulletToEnemy = dist(b.pos.x, b.pos.y, e.pos.x, e.pos.y);
+      if (bulletToEnemy < 25) { score += 10; e.respawn(); }
     }
-    if (boss && dist(b.pos.x, b.pos.y, boss.pos.x, boss.pos.y) < 60) {
-      boss.health--;
-      if (boss.health <= 0) { score += 300; boss = null; }
+    if (boss) {
+      let bulletToBoss = dist(b.pos.x, b.pos.y, boss.pos.x, boss.pos.y);
+      if (bulletToBoss < 60) {
+        boss.health--;
+        if (boss.health <= 0) { score += 300; boss = null; }
+      }
     }
     if (b.offscreen()) bullets.splice(i, 1);
   }
@@ -76,16 +91,9 @@ function drawMusicNodes() {
     let floatY = sin(frameCount * 0.05 + n.x) * 10;
     let y = n.y + floatY;
     let hover = dist(mouseX, mouseY, n.x, y) < 40;
-    stroke(n.color);
-    noFill();
-    ellipse(n.x, y, 60);
-    fill(n.color);
-    noStroke();
-    ellipse(n.x, y, hover ? 50 : 40);
-    fill(255);
-    textAlign(CENTER);
-    textSize(12);
-    text(n.name, n.x, y + 55);
+    stroke(n.color); noFill(); ellipse(n.x, y, 60);
+    fill(n.color); noStroke(); ellipse(n.x, y, hover ? 50 : 40);
+    fill(255); textAlign(CENTER); textSize(12); text(n.name, n.x, y + 55);
   }
 }
 
@@ -103,62 +111,46 @@ function mousePressed() {
 
 function drawOcean() {
   background(5, 0, 25);
+  maxwellParams.phase += maxwellParams.frequency;
   for (let y = 0; y < height; y += 3) {
-    let wave = sin(frameCount * 0.02 + y * 0.03) * 20;
-    stroke(20 + wave, 0, 60 + wave);
+    let electricField = sin(frameCount * maxwellParams.frequency + y * 0.03) * maxwellParams.amplitude;
+    let magneticField = cos(frameCount * maxwellParams.frequency + y * 0.05) * 10;
+    stroke(20 + electricField, magneticField * 0.5, 60 + electricField);
     line(0, y, width, y);
   }
 }
 
 function drawStart() {
-  fill(255);
-  textAlign(CENTER, CENTER);
-  textSize(64);
+  fill(255); textAlign(CENTER, CENTER); textSize(64);
   text("I Z Z I E", width / 2, height / 2 - 40);
-  textSize(16);
-  fill(180);
-  text("izziesounds", width / 2, height / 2);
-  fill(255);
-  textSize(20);
-  text("POISON SEA // SPY SIGNAL ENTRY", width / 2, height / 2 + 40);
-  textSize(14);
-  fill(200);
-  text("Click to Enter", width / 2, height / 2 + 80);
+  textSize(16); fill(180); text("izziesounds", width / 2, height / 2);
 }
 
 class Player {
-  constructor() { this.pos = createVector(width / 2, height / 2); }
-  update() { this.pos.set(mouseX, mouseY); }
+  constructor() { this.pos = createVector(width / 2, height / 2); this.size = 15; this.angle = 0; }
+  update() {
+    this.pos.set(mouseX, mouseY);
+    this.angle = p5.Vector.sub(this.pos, createVector(width / 2, height / 2)).heading();
+  }
   show() {
-    push();
-    translate(this.pos.x, this.pos.y);
-    fill(0, 255, 255);
-    noStroke();
-    triangle(12, 0, -10, -7, -10, 7);
-    pop();
+    push(); translate(this.pos.x, this.pos.y); rotate(this.angle);
+    fill(0, 255, 255); noStroke(); triangle(12, 0, -10, -7, -10, 7); pop();
   }
 }
 
 class Enemy {
-  constructor() { this.respawn(); }
+  constructor() { this.respawn(); this.size = 30; }
   respawn() { this.pos = createVector(random(width), random(height)); this.vel = p5.Vector.random2D(); }
-  hunt(target) { let dir = p5.Vector.sub(target.pos, this.pos).setMag(1.2); this.vel.lerp(dir, 0.05); }
+  hunt(target) { this.vel.lerp(p5.Vector.sub(target.pos, this.pos).setMag(1.2), 0.05); }
   update() { this.pos.add(this.vel); }
-  show() { fill(180, 100, 255, 120); noStroke(); ellipse(this.pos.x, this.pos.y, 30); }
+  show() { fill(180, 100, 255, 120); noStroke(); ellipse(this.pos.x, this.pos.y, this.size); }
 }
 
 class Boss {
-  constructor() { this.pos = createVector(width / 2, -50); this.health = 60; }
-  hunt(target) { let dir = p5.Vector.sub(target.pos, this.pos).setMag(1); this.pos.add(dir); }
+  constructor() { this.pos = createVector(width / 2, -50); this.health = 60; this.radius = 60; }
+  hunt(target) { this.pos.add(p5.Vector.sub(target.pos, this.pos).setMag(1)); }
   update() {}
-  show() {
-    fill(255, 0, 150);
-    ellipse(this.pos.x, this.pos.y, 120);
-    fill(255);
-    textAlign(CENTER);
-    textSize(16);
-    text("LABEL AGENT", this.pos.x, this.pos.y - 70);
-  }
+  show() { fill(255, 0, 150); ellipse(this.pos.x, this.pos.y, this.radius * 2); }
 }
 
 class Bullet {
