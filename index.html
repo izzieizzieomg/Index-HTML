@@ -1,14 +1,31 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>I Z Z I E</title>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
-  <link rel="stylesheet" href="style.css">
+    <meta charset="UTF-8">
+    <title>I Z Z I E | Official Cyber Portal</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+    <style>
+        /* Existing CSS stays here, just add these two blocks: */
+        #sketch-holder {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1; /* Puts the art behind everything */
+        }
+        body { background-color: #060608; } /* Ensures a base color */
+    </style>
 </head>
 <body>
-  <div id="overlay">I Z Z I E // SIGNAL ACTIVE</div>
-  <div id="sketch-holder"></div>
-  <script src="script.js"></script>
+    <div id="sketch-holder"></div>
+
+    <div class="portal-frame">
+        <header class="center-text">
+            <h1>I Z Z I E</h1>
+            </header>
+        </div>
+
+    <script src="script.js"></script>
 </body>
 </html>
