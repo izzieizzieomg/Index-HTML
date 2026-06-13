@@ -1,0 +1,37 @@
+{
+  "artist": "I Z Z I E",
+  "alternateName": "i z z i e",
+  "url": "https://izziesounds.com",
+  "location": "Tennessee",
+  "creative_domains": [
+    "Music",
+    "Digital Art",
+    "Audio Production",
+    "Creative Technology",
+    "Livestream Experiences"
+  ],
+  "genres": [
+    "Alternative Pop",
+    "Soft Hip-Pop",
+    "Electronic"
+  ],
+  "projects": [
+    {
+      "title": "Journal Notes",
+      "type": "EP",
+      "tracks": [
+        "I Am The Table",
+        "What If",
+        "Let The Storm Unfold",
+        "Low Light Glow"
+      ]
+    }
+  ],
+  "connected_platforms": {
+    "spotify": "spotify-url",
+    "apple_music": "apple-url",
+    "amazon_music": "amazon-url",
+    "youtube": "youtube-url",
+    "tiktok": "tiktok-url"
+  }
+}

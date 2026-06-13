@@ -1,0 +1,30 @@
+{
+  "artist": "I Z Z I E",
+  "releases": [
+    {
+      "title": "Journal Notes",
+      "type": "EP",
+      "status": "released",
+      "tracks": [
+        {
+          "title": "I Am The Table",
+          "featured": true
+        },
+        {
+          "title": "What If",
+          "featured": false
+        },
+        {
+          "title": "Let The Storm Unfold",
+          "featured": false
+        },
+        {
+          "title": "Low Light Glow",
+          "featured": false
+        }
+      ]
+    }
+  ],
+  "latest": "Journal Notes",
+  "featured_track": "I Am The Table"
+}
