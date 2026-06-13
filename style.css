@@ -47,3 +47,15 @@ canvas {
   left: 0;
   z-index: 0;
 }
+
+.portal-frame {
+    position: relative;
+    z-index: 1;
+    width: 90%;           /* Changed from fixed width */
+    max-width: 800px;     /* Allows it to be wider */
+    margin: 0 auto;       /* Centers the box */
+    padding: 40px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+}
