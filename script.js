@@ -43,11 +43,19 @@ let musicNodes = [
 ];
 
 function setup() {
-  const canvas = createCanvas(800, 600);
-  canvas.parent('sketch-holder');
+  // Use the dimensions of the parent element, not fixed pixels
+  let container = document.getElementById('sketch-holder');
+  let canvas = createCanvas(container.clientWidth, container.clientHeight);
+  canvas.parent("sketch-holder");
   textFont('monospace');
   player = new Player();
   resetEnemies();
+}
+
+// Ensure it updates when you stretch the window
+function windowResized() {
+  let container = document.getElementById('sketch-holder');
+  resizeCanvas(container.clientWidth, container.clientHeight);
 }
 
 function draw() {
