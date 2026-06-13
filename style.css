@@ -14,16 +14,23 @@ body {
   font-family: 'Courier New', Courier, monospace;
   color: #fff;
   position: relative;
+  /* Flexbox to help center content */
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #overlay {
   position: absolute;
   z-index: 10;
   top: 20px;
-  left: 20px;
+  /* This centers the overlay horizontally */
+  left: 50%;
+  transform: translateX(-50%);
   font-size: 14px;
   letter-spacing: 2px;
   text-transform: uppercase;
+  text-align: center;
 }
 
 #sketch-holder {
