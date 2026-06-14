@@ -1,3 +1,5 @@
+/* Global Reset */
+* {
 * function renderGame() {
   player.show();
   for (let e of swarm) e.show();
@@ -30,11 +32,15 @@ function drawStart() {
 body {
   margin: 0;
   padding: 0;
+  background: #050019;
+  min-height: 100vh;
   background: #074b4ad9;
   height: 100vh;
   width: 100vw;
-  overflow: hidden;
   font-family: 'Courier New', Courier, monospace;
+  color: #fff;
+  position: relative;
+  /* Flexbox to help center the portal frame */
   color: #f097ec;
   /* This centers the .hero container */
   display: flex;
@@ -42,17 +48,36 @@ body {
   align-items: center;
 }
 
+/* Background Art Layer */
 /* Background Canvas stays behind everything */
 #sketch-holder {
-  position: absolute;
+  position: fixed;
   inset: 0;
   width: 100%;
   height: 100%;
   z-index: 0;
+  pointer-events: none; /* Allows clicks to pass through to portal */
 }
 
+/* Canvas styling (ensures it fills the holder) */
 canvas {
   display: block;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Portal Content Layer */
+.portal-frame {
+  position: relative;
+  z-index: 1;
+  width: 90%;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 40px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 48px;
+  text-align: center;
   width: 100%;
   height: 100%;
 }
@@ -78,6 +103,14 @@ canvas {
 
 #overlay {
   position: absolute;
+  z-index: 2;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  text-align: center;
   z-index: 10;
   top: 20px;
   left: 20px;
