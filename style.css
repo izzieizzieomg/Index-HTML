@@ -1,4 +1,27 @@
-* {
+* function renderGame() {
+  player.show();
+  for (let e of swarm) e.show();
+  if (boss) boss.show();
+  for (let b of bullets) b.show();
+  
+  // Updated to "I Z Z I E"
+  fill(255); noStroke(); textAlign(LEFT, TOP); textSize(16);
+  text("I Z Z I E", width * 0.02, height * 0.02);
+  text("izziesounds", width * 0.02, height * 0.05);
+  text("Score: " + score, width * 0.02, height * 0.08);
+}
+
+function drawStart() {
+  fill(255); textAlign(CENTER, CENTER);
+  textSize(width > 600 ? 64 : 32);
+  text("I Z Z I E", width / 2, height / 2 - 40); // Updated text
+  
+  textSize(16); fill(180); 
+  text("izziesounds", width / 2, height / 2);
+  
+  textSize(20); fill(255); 
+  text("POISON SEA // SPY SIGNAL ENTRY", width / 2, height / 2 + 40);
+}{
   box-sizing: border-box;
   margin: 0;
   padding: 0;
