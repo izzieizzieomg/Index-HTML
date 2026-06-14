@@ -1,5 +1,29 @@
 /* Global Reset */
 * {
+* function renderGame() {
+  player.show();
+  for (let e of swarm) e.show();
+  if (boss) boss.show();
+  for (let b of bullets) b.show();
+  
+  // Updated to "I Z Z I E"
+  fill(255); noStroke(); textAlign(LEFT, TOP); textSize(16);
+  text("I Z Z I E", width * 0.02, height * 0.02);
+  text("izziesounds", width * 0.02, height * 0.05);
+  text("Score: " + score, width * 0.02, height * 0.08);
+}
+
+function drawStart() {
+  fill(255); textAlign(CENTER, CENTER);
+  textSize(width > 600 ? 64 : 32);
+  text("I Z Z I E", width / 2, height / 2 - 40); // Updated text
+  
+  textSize(16); fill(180); 
+  text("izziesounds", width / 2, height / 2);
+  
+  textSize(20); fill(255); 
+  text("POISON SEA // SPY SIGNAL ENTRY", width / 2, height / 2 + 40);
+}{
   box-sizing: border-box;
   margin: 0;
   padding: 0;
@@ -10,17 +34,22 @@ body {
   padding: 0;
   background: #050019;
   min-height: 100vh;
+  background: #074b4ad9;
+  height: 100vh;
   width: 100vw;
   font-family: 'Courier New', Courier, monospace;
   color: #fff;
   position: relative;
   /* Flexbox to help center the portal frame */
+  color: #f097ec;
+  /* This centers the .hero container */
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 /* Background Art Layer */
+/* Background Canvas stays behind everything */
 #sketch-holder {
   position: fixed;
   inset: 0;
@@ -49,6 +78,27 @@ canvas {
   flex-direction: column;
   gap: 48px;
   text-align: center;
+  width: 100%;
+  height: 100%;
+}
+
+/* Foreground Content */
+.hero {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  pointer-events: none; /* Let clicks pass through to the game */
+}
+
+.enter-button {
+  pointer-events: auto; /* Keep the button clickable */
+  cursor: pointer;
+  background: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  margin-top: 20px;
 }
 
 #overlay {
@@ -61,4 +111,10 @@ canvas {
   letter-spacing: 2px;
   text-transform: uppercase;
   text-align: center;
+  z-index: 10;
+  top: 20px;
+  left: 20px;
+  font-size: 14px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
 }

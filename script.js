@@ -18,6 +18,7 @@ let musicNodes = [
 ];
 
 function setup() {
+  // Use the container dimensions to fill the background
   let container = document.getElementById('sketch-holder');
   let canvas = createCanvas(container.clientWidth, container.clientHeight);
   canvas.parent("sketch-holder");
@@ -54,6 +55,9 @@ function updateGame() {
     boss.hunt(player);
     boss.update();
   }
+    if (dist(e.pos.x, e.pos.y, player.pos.x, player.pos.y) < 30) score = max(0, score - 10);
+  }
+  if (boss) { boss.hunt(player); boss.update(); }
   for (let i = bullets.length - 1; i >= 0; i--) {
     let b = bullets[i];
     b.update();
@@ -67,6 +71,11 @@ function updateGame() {
         boss.health--;
         if (boss.health <= 0) { score += 300; boss = null; }
       }
+      if (dist(b.pos.x, b.pos.y, e.pos.x, e.pos.y) < 25) { score += 10; e.respawn(); }
+    }
+    if (boss && dist(b.pos.x, b.pos.y, boss.pos.x, boss.pos.y) < 60) {
+      boss.health--;
+      if (boss.health <= 0) { score += 300; boss = null; }
     }
     if (b.offscreen()) bullets.splice(i, 1);
   }
@@ -118,6 +127,10 @@ function drawOcean() {
     stroke(20 + electricField, magneticField * 0.5, 60 + electricField);
     line(0, y, width, y);
   }
+  fill(255); noStroke(); textAlign(LEFT, TOP); textSize(16);
+  text("I Z Z I E", 20, 20);
+  text("izziesounds", 20, 45);
+  text("Score: " + score, 20, 70);
 }
 
 function drawStart() {
@@ -161,3 +174,8 @@ class Bullet {
 }
 
 function resetEnemies() { swarm = []; for (let i = 0; i < 10; i++) swarm.push(new Enemy()); }
+  textSize(20); fill(255); text("POISON SEA // SPY SIGNAL ENTRY", width / 2, height / 2 + 40);
+  textSize(14); fill(200); text("Click to Enter", width / 2, height / 2 + 80);
+}
+
+// ... Keep your Player, Enemy, Boss, Bullet, drawOcean, drawMusicNodes, and mousePressed functions as they were below this point.
