@@ -7,13 +7,50 @@
 body {
   margin: 0;
   padding: 0;
-  background: #050019;
+  background: #074b4ad9;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
   font-family: 'Courier New', Courier, monospace;
-  color: #fff;
+  color: #f097ec;
+  /* This centers the .hero container */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Background Canvas stays behind everything */
+#sketch-holder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+/* Foreground Content */
+.hero {
   position: relative;
+  z-index: 10;
+  text-align: center;
+  pointer-events: none; /* Let clicks pass through to the game */
+}
+
+.enter-button {
+  pointer-events: auto; /* Keep the button clickable */
+  cursor: pointer;
+  background: transparent;
+  color: #fff;
+  border: 1px solid #fff;
+  padding: 10px 20px;
+  text-transform: uppercase;
+  margin-top: 20px;
 }
 
 #overlay {
@@ -24,19 +61,4 @@ body {
   font-size: 14px;
   letter-spacing: 2px;
   text-transform: uppercase;
-}
-
-#sketch-holder {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-}
-
-canvas {
-  display: block;
-  position: absolute;
-  top: 0;
-  left: 0;
-  z-index: 0;
 }
